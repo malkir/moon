@@ -49,10 +49,10 @@ tasks:
       - '.eslintcache'
       - '--color'
       - '--ext'
-      - '.ts,.tsx'
+      - '.js,.ts,.tsx'
       - '--fix'
       - '--ignore-path'
-      - '@in(4)'
+      - '@in(5)'
       - '--exit-on-fatal-error'
       - '--no-error-on-unmatched-pattern'
       - '--report-unused-disable-directives'
@@ -64,6 +64,7 @@ tasks:
       - '@globs(tests)'
       - 'package.json'
       - 'tsconfig.json'
+      - '*.js'
       - '/.eslintignore'
       - '/.eslintrc.js'
       - '/package.json'
@@ -82,8 +83,6 @@ tasks:
       - '@globs(tests)'
       - 'package.json'
       - 'jest.config.js'
-    outputs:
-      - 'dts'
 
   typecheck:
     command: 'tsc'

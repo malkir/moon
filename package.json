@@ -4,13 +4,11 @@
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "build": "packemon build --addEngines --addExports",
-    "docs": "cd website && yarn run start",
+    "docs": "yarn cli run website:start",
     "pack": "NODE_ENV=production yarn run packemon pack --addEngines --declaration=standard",
     "format": "prettier --write ./packages ./website",
-    "test": "jest --passWithNoTests",
-    "lint": "eslint --cache --color --fix --ext .ts,.tsx,.mjs ./packages ./scripts ./website",
     "type": "tsc --build --verbose",
-    "cli": "moon"
+    "cli": "./target/debug/moon --logLevel trace"
   },
   "workspaces": [
     "packages/*",
