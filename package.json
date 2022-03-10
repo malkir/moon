@@ -4,11 +4,12 @@
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "build": "packemon build --addEngines --addExports",
+    "docs": "cd website && yarn run start",
     "pack": "NODE_ENV=production yarn run packemon pack --addEngines --declaration=standard",
-    "format": "prettier --write ./packages",
+    "format": "prettier --write ./packages ./website",
     "test": "jest --passWithNoTests",
-    "lint": "eslint --cache --color --fix --ext .ts,.tsx,.mjs ./packages ./scripts",
-    "type": "tsc --build",
+    "lint": "eslint --cache --color --fix --ext .ts,.tsx,.mjs ./packages ./scripts ./website",
+    "type": "tsc --build --verbose",
     "cli": "moon"
   },
   "workspaces": [
