@@ -106,3 +106,7 @@
   - [ ] All projects for target (`*`)
 - [ ] `graph`
   - [ ] Spin up an interactive website with full project/task data
+
+# 0.3.0
+
+- new website
