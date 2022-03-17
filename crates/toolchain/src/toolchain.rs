@@ -141,7 +141,10 @@ impl Toolchain {
             PM::Yarn => format!("yarn@{}", node.config.yarn.as_ref().unwrap().version),
         };
 
-        if using_corepack && root_package.set_package_manager(&manager_version) {
+        if using_corepack
+            && manager_version != "npm@inherit"
+            && root_package.set_package_manager(&manager_version)
+        {
             root_package.save().await?;
             check_manager_version = true;
         }
