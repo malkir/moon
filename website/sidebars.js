@@ -13,7 +13,13 @@ const sidebars = {
 		{
 			type: 'category',
 			label: 'Concepts',
-			items: ['concepts/workspace', 'concepts/toolchain', 'concepts/project', 'concepts/task'],
+			items: [
+				'concepts/workspace',
+				'concepts/toolchain',
+				'concepts/project',
+				'concepts/task',
+				'concepts/token',
+			],
 		},
 		{
 			type: 'category',
