@@ -1,0 +1,404 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProjectConfig",
+  "description": "Docs: https://moonrepo.dev/docs/config/project",
+  "type": "object",
+  "properties": {
+    "dependsOn": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ProjectDependsOn"
+      }
+    },
+    "fileGroups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "language": {
+      "$ref": "#/definitions/ProjectLanguage"
+    },
+    "project": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ProjectMetadataConfig"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/TaskConfig"
+      }
+    },
+    "type": {
+      "$ref": "#/definitions/ProjectType"
+    },
+    "workspace": {
+      "$ref": "#/definitions/ProjectWorkspaceConfig"
+    }
+  },
+  "definitions": {
+    "DependencyConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "default": "",
+          "type": "string"
+        },
+        "scope": {
+          "default": "production",
+          "allOf": [
+            {
+              "$ref": "#/definitions/DependencyScope"
+            }
+          ]
+        }
+      }
+    },
+    "DependencyScope": {
+      "type": "string",
+      "enum": [
+        "development",
+        "peer",
+        "production"
+      ]
+    },
+    "PlatformType": {
+      "type": "string",
+      "enum": [
+        "node",
+        "system",
+        "unknown"
+      ]
+    },
+    "ProjectDependsOn": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/DependencyConfig"
+        }
+      ]
+    },
+    "ProjectLanguage": {
+      "type": "string",
+      "enum": [
+        "bash",
+        "batch",
+        "javascript",
+        "typescript",
+        "unknown"
+      ]
+    },
+    "ProjectMetadataConfig": {
+      "type": "object",
+      "required": [
+        "channel",
+        "description",
+        "maintainers",
+        "name",
+        "owner"
+      ],
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "maintainers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectType": {
+      "type": "string",
+      "enum": [
+        "application",
+        "library",
+        "tool",
+        "unknown"
+      ]
+    },
+    "ProjectWorkspaceConfig": {
+      "type": "object",
+      "properties": {
+        "inheritedTasks": {
+          "$ref": "#/definitions/ProjectWorkspaceInheritedTasksConfig"
+        },
+        "typescript": {
+          "default": true,
+          "type": "boolean"
+        }
+      }
+    },
+    "ProjectWorkspaceInheritedTasksConfig": {
+      "type": "object",
+      "properties": {
+        "exclude": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "include": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "rename": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TaskCommandArgs": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "TaskConfig": {
+      "type": "object",
+      "properties": {
+        "args": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskCommandArgs"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "command": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskCommandArgs"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deps": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "inputs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "local": {
+          "type": "boolean"
+        },
+        "options": {
+          "$ref": "#/definitions/TaskOptionsConfig"
+        },
+        "outputs": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "$ref": "#/definitions/PlatformType"
+        }
+      }
+    },
+    "TaskMergeStrategy": {
+      "type": "string",
+      "enum": [
+        "append",
+        "prepend",
+        "replace"
+      ]
+    },
+    "TaskOptionEnvFile": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "TaskOptionsConfig": {
+      "type": "object",
+      "properties": {
+        "cache": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "envFile": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskOptionEnvFile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mergeArgs": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskMergeStrategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mergeDeps": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskMergeStrategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mergeEnv": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskMergeStrategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mergeInputs": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskMergeStrategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mergeOutputs": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskMergeStrategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outputStyle": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/TaskOutputStyle"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retryCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "runDepsInParallel": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "runFromWorkspaceRoot": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "runInCI": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "TaskOutputStyle": {
+      "type": "string",
+      "enum": [
+        "buffer",
+        "buffer-only-failure",
+        "hash",
+        "none",
+        "stream"
+      ]
+    }
+  }
+}
